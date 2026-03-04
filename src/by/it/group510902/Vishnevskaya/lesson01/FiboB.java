@@ -12,7 +12,7 @@ public class FiboB {
     private long startTime = System.currentTimeMillis();
 
     public static void main(String[] args) {
-        //вычисление чисел простым быстрым методом
+
         FiboB fibo = new FiboB();
         int n = 55555;
         System.out.printf("fastB(%d)=%d \n\t time=%d \n\n", n, fibo.fastB(n), fibo.time());
@@ -23,19 +23,19 @@ public class FiboB {
     }
 
     BigInteger fastB(Integer n) {
-        if (n <= 1) return BigInteger.valueOf(n);
 
-        BigInteger prev = BigInteger.ZERO; // 0
-        BigInteger curr = BigInteger.ONE;  // 1
+        if (n == 0) return BigInteger.ZERO;
+        if (n == 1) return BigInteger.ONE;
+
+        BigInteger[] f = new BigInteger[n + 1];
+
+        f[0] = BigInteger.ZERO;
+        f[1] = BigInteger.ONE;
 
         for (int i = 2; i <= n; i++) {
-            BigInteger next = prev.add(curr);
-            prev = curr;
-            curr = next;
+            f[i] = f[i - 1].add(f[i - 2]);
         }
 
-        return curr;
-
+        return f[n];
     }
-
 }
